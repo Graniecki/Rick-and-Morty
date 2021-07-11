@@ -1,0 +1,18 @@
+.character-card {
+    max-width: 100%;
+}
+
+.character-card img {
+    max-width: 100%;
+}
+
+.character-card:hover {
+    cursor: pointer;
+}
+
+.character-name {
+    margin-top: 10px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 25px;
+}
