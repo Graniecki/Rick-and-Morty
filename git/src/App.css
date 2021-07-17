@@ -1,17 +1,31 @@
 .App {
     position: relative;
-    overflow-y: auto;
+    overflow: hidden;
     height: 100vh;
-    /* background: url('./images/app-background.jpeg') no-repeat center; */
-    background-size: cover;
+    padding: 30px;
+    background: #f8f8f7;
 }
 
-.App .container {
-    max-width: 1280px;
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    height: 100%;
     margin: 0 auto;
-    padding: 20px 0;
 }
 
-.App .content {
-    background-color: rgb(112, 111, 211, 0.5);
+.menu {
+    display: flex;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+}
+
+.content {
+    width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+    background: #FBE0DC;
+    border-radius: 20px;
+    padding: 20px;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import { Select } from '../../UI/Select/Select';
 import { CharactersCard } from '../../components/CharactersCard/CharactersCard';
 import './Characters.css';
 
@@ -10,24 +11,25 @@ export const Characters = ({ baseUrl }) => {
   const [gender, setGender] = useState('');
   const [species, setSpecies] = useState('');
   const [url, setUrl] = useState(`${baseUrl}/character`);
+
+  const statusArray = ['alive', 'dead', 'unknown'];
+  const genderArray = ['male', 'female', 'genderless', 'unknown'];
   const speciesArray = [
     'Human', 'Alien', 'Humanoid','Animal', 'Cronenberg', 'Disease',
     'Robot', 'Mythological Creature', 'Poopybutthole', 'unknown'
   ].sort();
 
-  const [errorMessage, setErrorMessage] = useState(false);
+  const speciesHandler = (event) => setSpecies(event.target.value);
+
+  const statusHandler = (event) => setStatus(event.target.value);
+
+  const genderHandler = (event) => setGender(event.target.value);
 
   useEffect(() => {
     const fetchCharacters = async () => {
-      try {
-        const result = await fetch(url).then(response => response.json());
-        setCharacters(result.results.filter((el, index) => index < 10));
-        setCharactersInfo(result.info);
-        setErrorMessage(false);
-      } catch (error) {
-        setCharacters([]);
-        setErrorMessage(true);
-      }
+      const result = await fetch(url).then(response => response.json());
+      setCharacters(result.results);
+      setCharactersInfo(result.info);
     };
 
     fetchCharacters();
@@ -40,48 +42,32 @@ export const Characters = ({ baseUrl }) => {
   return (
     <>
       <div className="filters">
-        <span>Species</span>
-        <select
-          name="species"
-          value={species}
-          onChange={(event) => setSpecies(event.target.value)}
-        >
-          <option value="">All</option>
-          {speciesArray.map(el => (
-            <option key={el}>{el}</option>
-          ))}
-        </select>
+        <Select
+          selectName="species"
+          selectValue={species}
+          selectHandler={speciesHandler}
+          options={speciesArray}
+        />
 
-        <span>Status</span>
-        <select
-          name="status"
-          value={status}
-          onChange={(event) => setStatus(event.target.value)}
-        >
-          <option value="">All</option>
-          <option value="alive">Alive</option>
-          <option value="dead">Dead</option>
-          <option value="unknown">Unknown</option>
-        </select>
+        <Select
+          selectName="status"
+          selectValue={status}
+          selectHandler={statusHandler}
+          options={statusArray}
+        />
 
-        <span>Gender</span>
-        <select
-          name="gender"
-          value={gender}
-          onChange={(event) => setGender(event.target.value)}
-        >
-          <option value="">All</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="genderless">Genderless</option>
-          <option value="unknown">Unknown</option>
-        </select>
+        <Select
+          selectName="gender"
+          selectValue={gender}
+          selectHandler={genderHandler}
+          options={genderArray}
+        />
       </div>
 
       <div className="characters">
-        {errorMessage && <h1>Nothing was found for the specified query, please change the filters</h1>}
+        {!characters && <h1>Nothing was found for the specified query, please change the filters</h1>}
 
-        {characters.map(person => (
+        {characters && characters.map(person => (
           <CharactersCard
             key={person.id}
             person={person}
@@ -89,7 +75,8 @@ export const Characters = ({ baseUrl }) => {
         ))}
       </div>
 
-      <div className="pagination">
+      {characters &&
+        <div className="pagination">
         <button
           onClick={() => setUrl(charactersInfo.prev)}
           disabled={!charactersInfo.prev}
@@ -103,6 +90,7 @@ export const Characters = ({ baseUrl }) => {
           next
         </button>
       </div>
+      }
     </>
   );
 };

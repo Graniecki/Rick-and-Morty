@@ -1,0 +1,7 @@
+.select {}
+
+.select span,
+.select option {
+  text-transform: capitalize;
+}
+

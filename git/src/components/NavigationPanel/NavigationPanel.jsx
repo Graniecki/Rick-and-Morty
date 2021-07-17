@@ -1,14 +1,14 @@
-import { Button } from '../../UI/Button/Button';
+import { PanelItemCard } from '../PanelItemCard/PanelItemCard';
 
 import './NavigationPanel.css';
 
 export const NavigationPanel = ({ tab1, tab2, tab3, tab4 }) => {
   return (
     <div className="nav-panel">
-      <Button handleClick={tab1}>Characters</Button>
-      <Button handleClick={tab2}>Episodes</Button>
-      <Button handleClick={tab3}>Locations</Button>
-      <Button handleClick={tab4}>My watch list</Button>
+      <PanelItemCard buttonName="Characters" handleClick={tab1} color="tomato" />
+      <PanelItemCard buttonName="Episodes" handleClick={tab2} color="green" />
+      <PanelItemCard buttonName="Locations" handleClick={tab3} color="yellow" />
+      <PanelItemCard buttonName="My watch list" handleClick={tab4} color="purple" />
     </div>
   );
 };

@@ -22,21 +22,21 @@ export const CharacterPopup = ({ person, closePopup }) => {
   return (
     <div className="popup-wrapper">
       <div className="popup">
-        <button className="close" onClick={() => closePopup()}>Close popup</button>
+        <button className="close" onClick={() => closePopup()} />
         <div className="popup-content">
           <img src={person.image} alt={person.name} />
-          <h3>{person.name}</h3>
-          <p>Status: {person.status}</p>
-          <p>Species: {person.species}</p>
-          <p>Type: {person.type ? person.type : '-'}</p>
-          <p>Gender: {person.gender}</p>
-          <p>Origin location: {person.origin.name}</p>
-          <p>Last known location: {person.location.name}</p>
-          <p>Episodes: 
+          <p><span className="info">Name:</span> {person.name}</p>
+          <p><span className="info">Status:</span> {person.status}</p>
+          <p><span className="info">Species:</span> {person.species}</p>
+          <p><span className="info">Type:</span> {person.type ? person.type : '-'}</p>
+          <p><span className="info">Gender:</span> {person.gender}</p>
+          <p><span className="info">Origin location:</span> {person.origin.name}</p>
+          <p><span className="info">Last known location:</span> {person.location.name}</p>
+          {/* <p>Episodes: 
             {episodes.map(episode => (
               <span key={episode}>{episode}</span>
             ))}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
